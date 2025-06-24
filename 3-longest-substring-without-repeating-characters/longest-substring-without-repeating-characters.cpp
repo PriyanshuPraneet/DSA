@@ -7,20 +7,14 @@ public:
         if(s.length() == 0) return 0;
         int l = 0;
         int r = 0;
-        //mpp[s[l]]++;
-        while(l<=r && r<s.length()){
-            if(mpp.find(s[r]) == mpp.end()){
-                len = (r-l)+1;
-                maxLen = max(maxLen,len);
-                mpp[s[r]]++;
-                r++;
+        while(r<s.length()){
+            if(mpp.find(s[r]) != mpp.end() && l<=mpp[s[r]]){
+                l = mpp[s[r]]+1;
             }
-            else{
-                while(mpp.find(s[r]) != mpp.end() && l<=r){
-                    mpp.erase(s[l]);
-                    l++;
-                }
-            }
+            mpp[s[r]] = r;
+            len = r-l+1;
+            maxLen = max(maxLen,len);
+            r++;
         }
         return maxLen;
     }
