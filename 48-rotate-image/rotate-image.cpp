@@ -1,17 +1,18 @@
 class Solution {
 public:
-    void getTranspose(vector<vector<int>>& matrix){
+    void getRotated(vector<vector<int>>& matrix){
         int n = matrix.size();
         for(int i=0; i<n; i++){
-            for(int j=i; j<n; j++){
-                swap(matrix[i][j],matrix[j][i]);
+            for(int j=0; j<n-i; j++){
+                int t = (n-1) - (i+j);
+                swap(matrix[i][j], matrix[i+t][j+t]);
             }
         }
     }
     void rotate(vector<vector<int>>& matrix) {
-        getTranspose(matrix);
         for(int i=0; i<matrix.size(); i++){
             reverse(matrix[i].begin(),matrix[i].end());
         }
+        getRotated(matrix);
     }
 };
