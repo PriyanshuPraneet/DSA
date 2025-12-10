@@ -1,20 +1,21 @@
 class Solution {
 public:
-    void function(double x, long long n, double& ans){
-        if(n<=0) return;
-        function(x,n/2,ans);
-        ans *= ans;
-        if(n%2){
+    double calculatePower(double x, long long power){
+        if(power<=0) return 1;
+        double ans = calculatePower(x,power/2);
+        ans = ans*ans;
+        if(power%2 == 1){
             ans = ans*x;
         }
+        return ans;
     }
     double myPow(double x, int n) {
-        double ans = 1;
-        long long nn = n;
-        if(nn<0){
-            function(1/x, -nn, ans);
+        long long power = n;
+        if(power<0){
+            power = -1 * power;
         }
-        else function(x,nn,ans);
+        double ans = calculatePower(x,power);
+        if(n<0) ans = (double)1.0/(double)ans;
         return ans;
     }
 };
