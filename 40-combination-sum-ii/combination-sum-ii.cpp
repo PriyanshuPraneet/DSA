@@ -1,24 +1,25 @@
 class Solution {
 public:
-    void getCombination(vector<int>& candidates, int target, vector<int>& temp,
-    vector<vector<int>>& ans, int i){
-        if(target == 0){
-            ans.push_back(temp);
-            return;
+    void getCombinations(vector<int>& nums,int target,vector<int>& temp,
+    vector<vector<int>>& ans,int idx)
+    {
+        if(target==0){
+        ans.push_back(temp);
+        return;
         }
-        for(int j = i; j<candidates.size(); j++){
-            if(candidates[j]>target) break;
-            if(j>i && candidates[j]==candidates[j-1]) continue;
-            temp.push_back(candidates[j]);
-            getCombination(candidates,target-candidates[j],temp,ans,j+1);
+        for(int i=idx; i<nums.size(); i++){
+            if(nums[i]>target) break;
+            if(i!=idx && nums[i]==nums[i-1]) continue;
+            temp.push_back(nums[i]);
+            getCombinations(nums,target-nums[i],temp,ans,i+1);
             temp.pop_back();
         }
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         sort(candidates.begin(),candidates.end());
-        vector<vector<int>> ans;
         vector<int> temp;
-        getCombination(candidates,target,temp,ans,0);
+        vector<vector<int>> ans;
+        getCombinations(candidates,target,temp,ans,0);
         return ans;
     }
 };
