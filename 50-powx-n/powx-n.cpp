@@ -1,21 +1,28 @@
 class Solution {
 public:
-    double calculatePower(double x, long long power){
-        if(power<=0) return 1;
-        double ans = calculatePower(x,power/2);
-        ans = ans*ans;
-        if(power%2 == 1){
-            ans = ans*x;
+    void getAns(double x, long long n, double& ans){
+        if(n<=0){
+            ans = 1;
+            return;
         }
-        return ans;
+        if(n%2==0){
+            getAns(x,n/2,ans);
+            ans = ans * ans;
+        }
+        else{
+            getAns(x,n-1,ans);
+            ans = x * ans;
+        }
     }
-    double myPow(double x, int n) {
-        long long power = n;
-        if(power<0){
-            power = -1 * power;
+    double myPow(double x, int N) {
+        long long n = N;
+        double ans = 1;
+        if(n<0){
+            n = n * -1;
+            getAns(x,n,ans);
+            return 1/ans;
         }
-        double ans = calculatePower(x,power);
-        if(n<0) ans = (double)1.0/(double)ans;
+        getAns(x,n,ans);
         return ans;
     }
 };
